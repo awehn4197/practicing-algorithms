@@ -10,13 +10,14 @@
  */
 class Solution {
     public ListNode mergeKLists(ListNode[] lists) {
+        
         if (lists.length == 0) {
             return null;
         }
 
-        boolean allListsEmpty = true;
         PriorityQueue<Integer> minHeap = new PriorityQueue();
         
+        boolean allListsEmpty = true;
         for (ListNode list : lists) {
             allListsEmpty = allListsEmpty && (list == null);
 
@@ -25,6 +26,7 @@ class Solution {
                 list = list.next;
             }
         }
+        
         if (allListsEmpty) {
             return null;
         }
