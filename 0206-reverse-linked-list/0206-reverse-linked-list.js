@@ -18,7 +18,6 @@ var reverseList = function(head) {
         currentNode.next = previousNode;
         previousNode = currentNode;
         currentNode = nextNode;
-        // console.log(`previousNode: ${previousNode.val}`)
     }
     
     return previousNode;
