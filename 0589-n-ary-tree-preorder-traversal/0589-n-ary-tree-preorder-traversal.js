@@ -10,14 +10,27 @@
  * @param {Node|null} root
  * @return {number[]}
  */
+
 var preorder = function(root) {
-    if (!root) return [];
+    var stack = [];
+    var output = [];
     
-    var arr = [root.val];
+    if (!root) {
+        return output;
+    }
     
-    root.children.forEach(child => {
-        arr.push(...preorder(child));
-    });
+    stack.push(root);
     
-    return arr;
+    while (stack.length > 0) {
+        var node = stack.pop();
+        
+        output.push(node.val);
+        
+        node.children.reverse();
+        node.children.forEach(child => {
+            stack.push(child);
+        });
+    }
+    
+    return output;
 };
