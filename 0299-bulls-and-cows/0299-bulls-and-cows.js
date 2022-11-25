@@ -4,95 +4,77 @@
  * @return {string}
  */
 var getHint = function(secret, guess) {
-    var secDigitsToIndices = new Map();
-    [...secret].forEach((digit, index) => {
-        var indices = secDigitsToIndices.get(digit) || [];
-        indices.push(index);
-        secDigitsToIndices.set(digit, indices);
-    });
-    
-    var guessDigitsToIndices = new Map();
-    [...guess].forEach((digit, index) => {
-        var indices = guessDigitsToIndices.get(digit) || [];
-        indices.push(index);
-        guessDigitsToIndices.set(digit, indices);
-    });
-    
     var bulls = 0; var cows = 0;
+    
+    var secDigitCount = new Map();
+    [...secret].forEach(digit => {
+        var count = secDigitCount.get(digit) || 0;
+        secDigitCount.set(digit, count + 1);
+    });
+    
+    for (let i = 0; i < guess.length; i++) {
+        var secCount = secDigitCount.get(guess.charAt(i)) || 0;
+        
+        if (secret.charAt(i) === guess.charAt(i)) {
+            bulls++;
 
-    // find bulls
-    Array.from(guessDigitsToIndices.keys()).forEach(digit => {
-        var guessIndices = guessDigitsToIndices.get(digit) || [];
-        var secretIndices = secDigitsToIndices.get(digit) || [];
-        
-        for (let i = 0; i < guessIndices.length; i++) {
-            var guessDigit = guessIndices[i];
-            var secIndex = secretIndices.indexOf(guessDigit);
-            // console.log(`digit: ${digit}, guessIndices: ${guessIndices}, secretIndices: ${secretIndices}`)
-            if (secIndex >= 0) {
-                console.log('incrementing bulls');
-                bulls++;
-                guessIndices[i] = 'x';
-                secretIndices[secIndex] = 'x';
+            if (secCount <= 0) {
+                cows--;
             }
-        }
-        
-        guessDigitsToIndices.set(digit, guessIndices);
-        secDigitsToIndices.set(digit, secretIndices);
-    });
-    
-    // find cows
-    Array.from(guessDigitsToIndices.keys()).forEach(digit => {
-        var guessIndices = (guessDigitsToIndices.get(digit) || []).filter(i => i !== 'x');
-        var secretIndices = (secDigitsToIndices.get(digit) || []).filter(i => i !== 'x');
-        
-        for (let i = 0; i < guessIndices.length; i++) {
-            var guessDigit = guessIndices[i];
             
-            var secIndex = secretIndices.indexOf(guessDigit);
-            // console.log(`digit: ${digit}, guessIndices: ${guessIndices}, secretIndices: ${secretIndices}`);
-            // console.log(`guessDigitIndex: ${guessDigit}, secIndex: ${secIndex}`);
-            if (secretIndices.length > 0) {
-                // console.log('increasing cows');
-                cows++;
-                guessIndices[i] = 'x';
-                secretIndices.pop();
-            }
+        } else if (secCount > 0) {
+            cows++;
         }
         
-        guessDigitsToIndices.set(digit, guessIndices);
-        secDigitsToIndices.set(digit, secretIndices);
-    });
-    
-//     // console.log(`secDigitsToIndices: ${Array.from(secDigitsToIndices)}`);
-    
-//     var bulls = 0; var cows = 0;
-//     var mappedIndicesOfGuessString = [];
-    
-//     [...guess].forEach((digit, index) => {
-//         var matchingIndices = secDigitsToIndices.get(digit) || [];
-//         var directMatch = matchingIndices.indexOf(index);
-//         // console.log(`digit: ${digit}, index: ${index}, matchingIndices: ${matchingIndices}, directMatch: ${directMatch}`);
-//         if (directMatch >= 0) {
-//             bulls++;
-//             console.log(`matchingIndices b4: ${matchingIndices}`);
-//             matchingIndices.splice(directMatch, 1);
-//             console.log(`matchingIndices after: ${matchingIndices}`);
-//             secDigitsToIndices.set(digit, matchingIndices);
-//             mappedIndicesOfGuessString.push()
-//         }
-//     });
-    
-//     [...guess].forEach(digit => {
-//         var matchingIndices = secDigitsToIndices.get(digit) || [];
-//         if (matchingIndices.length > 0) {
-//             cows++;
-//             matchingIndices.pop();
-//             secDigitsToIndices.set(digit, matchingIndices);
-//         }
-//     });
+        secDigitCount.set(guess.charAt(i), secCount-1);
+    }
     
     return `${bulls}A${cows}B`;
+
+    
+    
+//     var bulls = 0; var cows = 0;
+
+//     // find bulls
+//     Array.from(guessDigitsToIndices.keys()).forEach(digit => {
+//         var guessIndices = guessDigitsToIndices.get(digit) || [];
+//         var secretIndices = secDigitsToIndices.get(digit) || [];
+        
+//         for (let i = 0; i < guessIndices.length; i++) {
+//             var guessDigit = guessIndices[i];
+//             var secIndex = secretIndices.indexOf(guessDigit);
+//             if (secIndex >= 0) {
+//                 console.log('incrementing bulls');
+//                 bulls++;
+//                 guessIndices[i] = 'x';
+//                 secretIndices[secIndex] = 'x';
+//             }
+//         }
+        
+//         guessDigitsToIndices.set(digit, guessIndices);
+//         secDigitsToIndices.set(digit, secretIndices);
+//     });
+    
+//     // find cows
+//     Array.from(guessDigitsToIndices.keys()).forEach(digit => {
+//         var guessIndices = (guessDigitsToIndices.get(digit) || []).filter(i => i !== 'x');
+//         var secretIndices = (secDigitsToIndices.get(digit) || []).filter(i => i !== 'x');
+        
+//         for (let i = 0; i < guessIndices.length; i++) {
+//             var guessDigit = guessIndices[i];
+            
+//             if (secretIndices.length > 0) {
+//                 cows++;
+//                 guessIndices[i] = 'x';
+//                 secretIndices.pop();
+//             }
+//         }
+        
+//         guessDigitsToIndices.set(digit, guessIndices);
+//         secDigitsToIndices.set(digit, secretIndices);
+//     });
+    
+//     return `${bulls}A${cows}B`;
 };
 
 /*
