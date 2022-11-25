@@ -3,7 +3,10 @@
  * @param {number} k
  * @return {number}
  */
-var characterReplacement = function(s, k) {    
+var characterReplacement = function(s, k) {
+    console.log(`s: ${s}`);
+    console.log(`k: ${k}`);
+
     var low = 1;
     var high = s.length + 1;
         
