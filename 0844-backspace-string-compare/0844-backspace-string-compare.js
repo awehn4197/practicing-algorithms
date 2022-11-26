@@ -4,29 +4,22 @@
  * @return {boolean}
  */
 var backspaceCompare = function(s, t) {    
-    var nextSBackspace = s.indexOf('#');
-    var nextTBackspace = t.indexOf('#');
-    
-    // console.log(`nextSBackspace: ${nextSBackspace}, nextTBackspace: ${nextTBackspace}`);
-
-    
-    while (nextSBackspace !== -1 || nextTBackspace !== -1) {
+    var sStack = [];
+    var tStack = [];
         
-        // console.log(`s: ${s}`);
-        // console.log(`t: ${t}`);
-
-        
-        if (nextSBackspace !== -1) {
-            s = s.substring(0, nextSBackspace - 1) + s.substring(nextSBackspace + 1)
+    for (let i = 0; i < Math.max(s.length, t.length); i++) {
+        if (s.charAt(i) === '#') {
+            sStack.pop();
+        } else {
+            sStack.push(s.charAt(i));
         }
         
-        if (nextTBackspace !== -1) {
-            t = t.substring(0, nextTBackspace - 1) + t.substring(nextTBackspace + 1)
+        if (t.charAt(i) === '#') {
+            tStack.pop();
+        } else {
+            tStack.push(t.charAt(i));
         }
-        
-        nextSBackspace = s.indexOf('#');
-        nextTBackspace = t.indexOf('#');
     }
     
-    return s === t;
+    return (sStack.join('') === tStack.join(''));
 };
