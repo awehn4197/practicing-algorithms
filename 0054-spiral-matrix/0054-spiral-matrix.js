@@ -14,7 +14,6 @@ var spiralOrder = function(matrix) {
     var x = 0; var y = 0;
     
     while (index < m*n) {
-        // console.log(`index: ${index}, x: ${x}, y: ${y}, direction: ${direction}, digits: ${digits}`)
         if (direction === 0) {
             if (!validCoordinates(matrix, x, y)) {
                 direction++;
@@ -31,10 +30,7 @@ var spiralOrder = function(matrix) {
                 direction++;
                 x--; y--;
                 continue;
-                // console.log('validation');
             }
-            // console.log('assignment');
-
             digits.push(matrix[x][y]);
             matrix[x][y] = 101;
             x++;
@@ -70,13 +66,9 @@ var spiralOrder = function(matrix) {
 };
 
 var validCoordinates = (matrix, x, y) => {
-    // console.log('validating');
     if (matrix[x] !== undefined) {
-            // console.log('validating level 1');\
         if (matrix[x][y] !== undefined) {
-                // console.log('validating level 2');
             if (matrix[x][y] !== 101) {
-                    // console.log('validating level 3');
                 return true;
             }
         }
