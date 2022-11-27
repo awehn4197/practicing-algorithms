@@ -24,21 +24,29 @@ var decodeString = function(s) {
         }
         
         if (numberRegex.test(currChar)) {
-            console.log('number?');
-            var numString = currChar;
-            index++;
+            // console.log('number?');
+            // var numString = currChar;
             
+            var k = 0;
             while (numberRegex.test(s.charAt(index))) {
-                numString += s.charAt(index);
+                k = k*10 + (s.charAt(index) - '0');
                 index++;
             }
             
-            // console.log(`numString: ${numString}`);
-            var num = parseInt(numString);
+            index++;
+
             
-            if (s.charAt(index) !== '[') {
-                console.log('error');
-            }
+            // while (numberRegex.test(s.charAt(index))) {
+            //     numString += s.charAt(index);
+            //     index++;
+            // }
+            
+            // console.log(`numString: ${numString}`);
+            // var num = parseInt(numString);
+            
+            // if (s.charAt(index) !== '[') {
+            //     console.log('error');
+            // }
             
             var bracketStartIndex = index;
             var bracketCount = 1;
@@ -56,7 +64,7 @@ var decodeString = function(s) {
             var nestedString = decodeString(s.substring(bracketStartIndex, index + 1));
             // console.log(`nestedString: ${nestedString}, num: ${num}`)
 
-            for (let i = 1; i <= num; i++) {
+            for (let i = 1; i <= k; i++) {
                 // decodedString.push(nestedString);
                 decodedString = decodedString + nestedString;
                 // console.log(`n decodedString: ${decodedString}`);
