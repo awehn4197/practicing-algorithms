@@ -26,13 +26,4 @@ var groupAnagrams = function(strs) {
     }
     
     return output;
-        
-//     var anagramToIndices = new Map();
-//     strsCopy.forEach(elem => {
-//         var indices = anagramToIndices.get(elem[0]) || [];
-//         indices.push(elem[1]);
-//         anagramToIndices.set(elem[0], indices);
-//     });
-    
-//     return [...anagramToIndices].map(entry => entry[1].flat())
 };
