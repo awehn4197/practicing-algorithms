@@ -15,9 +15,24 @@ var shipWithinDays = function(weights, days) {
     let left = maxWeight;
     let right = sumOfWeights;
     
+    const isCapacityFeasible1 = (capacity) => {
+        let noDays = 1;
+        let currentLoad = 0;
+        
+        for (weight of weights) {
+            currentLoad += weight;
+            if (currentLoad > capacity) {
+                noDays++;
+                currentLoad = weight;
+            }
+        }
+        
+        return noDays <= days;
+    }
+    
     while (left < right) {
         let mid = Math.floor((left+right)/2);
-        if (isCapacityFeasible(mid, weights, days)) {
+        if (isCapacityFeasible1(mid)) {
             right = mid;
         } else {
             left = mid + 1;
@@ -27,16 +42,3 @@ var shipWithinDays = function(weights, days) {
     return left;
 };
 
-const isCapacityFeasible = (capacity, weights, maxDays) => {
-    let days = 1;
-    let currentLoad = 0;
-    
-    for (weight of weights) {
-        currentLoad += weight;
-        if (currentLoad > capacity) {
-            days++;
-            currentLoad = weight;
-        }
-    }
-    return days <= maxDays;
-}
