@@ -1,8 +1,20 @@
 class Solution:
     def mySqrt(self, x: int) -> int:
-        for i in range((x//2)+2):
-            prod = i*i
+        l = 0
+        r = (x//2)+2
+        while l < r:
+            mid = (l+r)//2
+            prod = mid * mid
             if (prod == x):
-                return i
+                return mid
             elif (prod > x):
-                return i-1
+                r = mid
+            else:
+                l = mid+1
+        return r-1
+        # for i in range((x//2)+2):
+        #     prod = i*i
+        #     if (prod == x):
+        #         return i
+        #     elif (prod > x):
+        #         return i-1
