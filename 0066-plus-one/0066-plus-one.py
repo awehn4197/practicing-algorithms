@@ -9,6 +9,6 @@ class Solution:
             if (newVal < 10):
                 carry = False
         if carry:
-            digits.insert(0, 1)
+            digits = [1] + digits
         return digits
             
