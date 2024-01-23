@@ -14,17 +14,20 @@ class Solution:
                 write_index += 1
                 if streak_length > 1:
                     # this is not constant space - it's logarithmic
-                    streak_length_digits = []
-                    while streak_length != 0:
-                        mod = streak_length % 10
-                        streak_length_digits.append(str(mod))
-                        streak_length = streak_length // 10
-                    while len(streak_length_digits) > 0:
-                        chars[write_index] = str(streak_length_digits.pop())
+                    for ch in str(streak_length):
+                        chars[write_index] = ch
                         write_index += 1
+                    # streak_length_digits = []
+                    # while streak_length != 0:
+                    #     mod = streak_length % 10
+                    #     streak_length_digits.append(str(mod))
+                    #     streak_length = streak_length // 10
+                    # while len(streak_length_digits) > 0:
+                    #     chars[write_index] = str(streak_length_digits.pop())
+                    #     write_index += 1
                 streak_length = 1
             else:
-                print(f"chars[read_index] == last_char")
+                # print(f"chars[read_index] == last_char")
                 streak_length += 1
             
             # % function to avoid index out of range exception on last iteration
