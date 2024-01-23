@@ -3,13 +3,9 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
-        last_zero_index = len(nums)
-        for i in range(len(nums)-1,-1,-1):
-            # print(nums)
-            if nums[i] == 0:
-                # print(f"i: {i}, nums[i]: {nums[i]}")
-                j = i
-                while j < last_zero_index-1:
-                    nums[j], nums[j+1] = nums[j+1], nums[j]
-                    j += 1
-                last_zero_index -= 1
+        zero_bunch_size = 0
+        for i in range(len(nums)):
+            if nums[i] != 0:
+                nums[i], nums[i-zero_bunch_size] = nums[i-zero_bunch_size], nums[i]
+            else:
+                zero_bunch_size += 1
