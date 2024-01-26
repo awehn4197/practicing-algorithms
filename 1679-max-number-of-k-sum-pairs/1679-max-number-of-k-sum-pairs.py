@@ -1,16 +1,11 @@
 class Solution:
     def maxOperations(self, nums: List[int], k: int) -> int:
-        nums.sort()
-        i = 0; j = len(nums)-1;
+        count = Counter(nums)
         op_count = 0
-        while i < j:
-            sum = nums[i] + nums[j]
-            if sum == k:
-                op_count += 1
-                i += 1
-                j -= 1
-            elif sum < k:
-                i += 1
-            else: 
-                j -= 1
+        for val, ct in count.items():
+            compl = k - val
+            if compl == val:
+                op_count += ct // 2
+            elif val < compl:
+                op_count += min(ct, count[compl])
         return op_count
