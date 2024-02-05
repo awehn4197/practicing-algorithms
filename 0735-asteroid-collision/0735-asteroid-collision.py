@@ -13,10 +13,10 @@ class Solution:
                     # print(f'colliding {colliding_asteroid} with {asteroid}')
                     # the asteroid at the top of the stack is smaller than the current asteroid
                     # so the new asteroid destroys the old one
-                    if colliding_asteroid < (-1)*asteroid:
+                    if colliding_asteroid < -asteroid:
                         stack.pop()
                     # the asteroids are the same size, collide and destroy each other
-                    elif colliding_asteroid == (-1)*asteroid:
+                    elif colliding_asteroid == -asteroid:
                         stack.pop()
                         asteroid = None
                         break
