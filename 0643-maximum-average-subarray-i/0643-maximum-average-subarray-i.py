@@ -6,6 +6,6 @@ class Solution:
         # while j < len(nums):
             curr_sum = curr_sum - nums[j-k] + nums[j]
             max_sum = max(max_sum, curr_sum)
-            j += 1
+            # j += 1
             
         return max_sum/k
