@@ -66,14 +66,14 @@ class Solution:
         
         
         r1_leaves = dfs_get_leaves(root1)
-        print(f'root1 leaves: {r1_leaves}')
+        # print(f'root1 leaves: {r1_leaves}')
         
         r2_leaves = dfs_get_leaves(root2)
-        print(f'root2 leaves: {r2_leaves}')
+        # print(f'root2 leaves: {r2_leaves}')
 
         return r1_leaves == r2_leaves
     
-        print()
+        # print()
                 
             
         
