@@ -34,14 +34,14 @@ class Solution:
             
         # arrived at this node by visiting the left node
         # therefore only the right child is "zaggy"
-        # reset left node and continue streak with right
+        # reset left child and continue streak with right
         elif prev_zag == 'left':
             self.dfs(node.left, 0, 'left')
             self.dfs(node.right, curr_path_length, 'right')
             
         # arrived at this node by visiting the right node
         # therefore only the left child is "zaggy"
-        # reset right node and continue streak with left
+        # reset right child and continue streak with left
         elif prev_zag == 'right':
             self.dfs(node.left, curr_path_length, 'left')
             self.dfs(node.right, 0, 'right')
