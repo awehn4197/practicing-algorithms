@@ -10,7 +10,10 @@ class Solution:
         curr_level = [root]
         curr_depth = 1
         while curr_level:
-            curr_sum = sum(map(lambda x: x.val, curr_level))
+            curr_sum = 0
+            for n in curr_level:
+                curr_sum += n.val
+            # curr_sum = sum(map(lambda x: x.val, curr_level))
             if curr_sum > minLevel_maxSum[1]:
                 minLevel_maxSum = (curr_depth, curr_sum)
             curr_level = [child for node in curr_level for child in (node.left, node.right) if child]
