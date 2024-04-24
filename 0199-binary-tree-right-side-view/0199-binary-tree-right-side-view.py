@@ -7,13 +7,12 @@
 class Solution:
     def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
         if not root:
-            return []
+            return None
         
-        view = []
         level = [root]
+        view = []
         while level:
             view.append(level[-1].val)
             level = [child for node in level for child in (node.left, node.right) if child]
-            
+        
         return view
-            
