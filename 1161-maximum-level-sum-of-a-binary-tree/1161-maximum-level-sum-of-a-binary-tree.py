@@ -6,16 +6,19 @@
 #         self.right = right
 class Solution:
     def maxLevelSum(self, root: Optional[TreeNode]) -> int:
-        minLevel_maxSum = (0, -float('inf'))
-        curr_level = [root]
-        curr_depth = 1
-        while curr_level:
-            curr_sum = 0
-            for n in curr_level:
-                curr_sum += n.val
-            # curr_sum = sum(map(lambda x: x.val, curr_level))
-            if curr_sum > minLevel_maxSum[1]:
-                minLevel_maxSum = (curr_depth, curr_sum)
-            curr_level = [child for node in curr_level for child in (node.left, node.right) if child]
-            curr_depth += 1
-        return minLevel_maxSum[0]
+        def DFS(node, depth):
+            if not node:
+                return
+            
+            if depth == len(sums):
+                sums.append(node.val)
+            else:
+                sums[depth] += node.val
+            
+            DFS(node.left, depth + 1)
+            DFS(node.right, depth + 1)
+        
+        sums = []
+        DFS(root, 0)
+        
+        return 1 + sums.index(max(sums))
