@@ -1,19 +1,20 @@
 class Solution:
     def minReorder(self, n: int, connections: List[List[int]]) -> int:
-        def dfs(node):
-            visited[node] = True
-            count = 0
-            for neighbor in al[node]:
-                if not visited[abs(neighbor)]:
-                    count += 1 if neighbor > 0 else 0
-                    count += dfs(abs(neighbor))
-            return count
-        
-        al = [[] for _ in range(len(connections) + 1)]
+        visited = [False] * n
+        al = [[] for _ in range(n)]
         for [n0, n1] in connections:
             al[n0].append(n1)
             al[n1].append(-n0)
         
-        count = 0
-        visited = [False] * (len(connections) + 1)
-        return dfs(0)
+        def dfs(from_node):
+            visited[from_node] = True
+            count = 0
+            for to_node in al[from_node]:
+                if not visited[abs(to_node)]:
+                    if to_node > 0:
+                        count += 1
+                    # visited[abs(to_node)] = True
+                    count += dfs(abs(to_node))
+            return count
+        
+        return dfs(0)                
