@@ -3,7 +3,6 @@
  * @return {number}
  */
 var addDigits = function(num) {
-    console.log('num: ', num)
     digits = num.toString().split('')
     if (digits.length === 1) {
         return parseInt(digits[0])
