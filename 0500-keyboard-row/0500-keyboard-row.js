@@ -9,7 +9,7 @@ var findWords = function(words) {
     
     result = []
     
-    words.map(word => {
+    words.forEach(word => {
         chs = word.split('')
         rowCount = [0, 0, 0]
         chs.forEach(ch => {
