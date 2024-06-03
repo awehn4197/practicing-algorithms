@@ -5,25 +5,21 @@
 var expect = function(val) {
     this.actual = val
     
-    function evaluateExpression(exp) {
-        if (exp) {
-            return true
-        } else {
-            throw new Error('Not Equal')
-        }
-    }
-    
-    function evaluateNegatedExpression(exp) {
-        if (exp) {
-            return true
-        } else {
-            throw new Error('Equal')
-        }
-    }
-    
     return {
-        toBe: (expected) => evaluateExpression(this.actual === expected),
-        notToBe: (unexpected) => evaluateNegatedExpression(this.actual !== unexpected)
+        toBe: (expected) => {
+            if (this.actual === expected) {
+                return true
+            } else {
+                throw new Error('Not Equal')
+            }
+        },
+        notToBe: (unexpected) => {
+            if (this.actual !== unexpected) {
+                return true
+            } else {
+                throw new Error('Equal')
+            }
+        }
     }
 };
 
