@@ -7,7 +7,7 @@ Array.prototype.groupBy = function(fn) {
         
     this.forEach(thing => {
         const key = fn(thing)
-        let curr = res[key] || []
+        let curr = res[key] ?? []
         curr.push(thing)
         res[key] = curr
     })
