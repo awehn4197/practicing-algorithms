@@ -3,96 +3,49 @@
  * @return {number[][]}
  */
 var threeSum = function(nums) {
-    let result = []
+    // sort nums ascending
+    // let res = []
+    // for (let left = 0; left < nums.length - 2; left++)
+    // initialize mid := left+1, right := nums.length-1
+    // while (left < right)
+    // sum := nums[left]+nums[mid]+nums[right]
+    // case 1: sum === 0
+    //      res.push([nums[left], nums[mid], nums[right]])
+    //      decrease right until new value
+    //      increase mid until new value
+    // case 2: sum < 0
+    //      increase mid
+    // case 3: sum > 0
+    //      decrease right
+    // increase left until new value
+    
     nums.sort((a, b) => a-b)
-    for (let low = 0; low < nums.length - 2; low++) {
-        let mid = low+1
-        let hi = nums.length-1
-        while (mid < hi) {
-            const sum = nums[low]+nums[mid]+nums[hi]
+    let res = []
+    for (let left=0; left < nums.length-2; left++) {
+        let mid = left+1
+        let right = nums.length-1
+        while (mid < right) {
+            // console.log(left, mid, right)
+            let sum = nums[left]+nums[mid]+nums[right]
             if (sum === 0) {
-                result.push([nums[low], nums[mid], nums[hi]])
-                while (nums[hi-1] === nums[hi]) {
-                    hi--
+                res.push([nums[left], nums[mid], nums[right]])
+                while (nums[right-1] === nums[right]) {
+                    right--;
                 }
+                right--;
                 while (nums[mid+1] === nums[mid]) {
-                    mid++
+                    mid++;
                 }
-                hi--;
                 mid++;
-            }
-            else if (sum > 0) {
-                hi--;
+            } else if (sum < 0) {
+                mid++;
             } else {
-                mid++;
+                right--;
             }
         }
-        while (nums[low+1] === nums[low]) {
-            low++
+        while (nums[left+1] === nums[left]) {
+            left++
         }
     }
-    return result;
-    // let result = []
-    // sort nums in ascending order
-    // for low in range 0 to nums.length-3
-    // initialize mid := low+1, hi := nums.length-1
-    // 3 pointers, 0 <= low < mid < hi <= nums.length-1
-    // sum = nums[low]+nums[mid]+nums[hi]
-    // if sum === 0: result.push([nums[low], nums[mid], nums[hi]])
-    //      while nums[low+1] === nums[low], mid++
-    //      while nums[hi-1] === nums[hi], hi--
-    //      mid++, hi--
-    // if sum > 0: hi--
-    // if sum < 0: mid++
-    
-//     let count = {}
-//     nums.forEach(num => {
-//         let curr = count[num] ?? 0
-//         count[num] = curr+1
-//     })
-//     console.log(count)
-    
-//     let result = []
-//     for (const [key1, value1] of Object.entries(count)) {
-//         for (const [key2, value2] of Object.entries(count)) {
-//             const key3 = -(key1+key2)
-//             const value3 = count[key3] ?? 0
-//             if (value3 > 0) {
-//                 result.push([key1, key2, key3])
-//                 count[key1] = 0
-//             }
-//         }
-//     }
-
-    // counter dictionary
-    // count = {
-    //      -1: 2,
-    //      0: 1,
-    //      2: 1,
-    //      -4: 1,
-    // }
-    // create the dictionary: O(n) time, O(n) space
-
-    // result = []
-    // for key1, c1 in count
-    //  for key2, c2 in count
-    //      key3 = -(key1 + key2)
-    //      c3 = count[key3]
-    //      if c3 > 0:
-    //          result.push([key1, key2, key3])
-    //          count[key1] = 0
-    //      decrement = c1 choose 3 if key1=key2=key3
-    //      decrement = 2 if key1=key2 or key1=key3
-    //      else decrement = 1 
- 
-    //      if c3 > 0: 
-        //      maxCombos = c1 choose 3 if key1=key2=key3
-        //      maxCombos = c1 choose 2 if key1=key2 or key1=key3
-        //      combosAdded = 0
-        //          while combosAdded < maxCombos:
-        //              result.push([key1, key2, key3])
-        //              combosAdded++
-        //              
-        //          count[key1] = 0;
-    // check for matches: O(n^2) time
+    return res;
 };
